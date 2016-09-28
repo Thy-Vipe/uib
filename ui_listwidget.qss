@@ -1,0 +1,17 @@
+QListWidget:item {
+	background-color: #415861;
+	border: 0px solid #000;
+	border-radius: 4px;
+}
+
+QListWidget:item:selected {
+	background-color: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #00BFEF, stop:1 #102929);
+	border-style: none;
+	border-radius: 4px;
+}
+
+QListWidget {
+	background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #5e698b, stop:1 #8B6A5E);
+	border-radius: 6px;
+	border: 3px solid #12191B;
+}
