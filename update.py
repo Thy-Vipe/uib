@@ -3,7 +3,7 @@ import zipfile
 import os
 from StringIO import StringIO
 
-REP_LINK = "https://github.com/falceeffect/MayaCUI/archive/master.zip" # link to GitHub repo with MayaCUI source code
+REP_LINK = "https://github.com/Thy-Vipe/archive/master.zip" # link to GitHub repo with MayaCUI source code
 EXCLUDE_LIST = [".gitignore", "cui.todo", "README.md"] # repository files, which are not interesting for the end-user
 
 zipData = StringIO(urllib2.urlopen(REP_LINK).read()) # load repo ZIP archive
