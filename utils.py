@@ -4,6 +4,7 @@ import ctypes
 import os
 import random as ran
 from PySide.QtCore import *
+from PySide.QtGui import *
 
 with open("%s\\objNames.uibsrc"%os.path.dirname(os.path.realpath(__file__)), "r") as dictionnaryFile:
   WORDS_DIC = dictionnaryFile.readlines()
@@ -38,18 +39,21 @@ def distance(QPoint1, QPoint2):
 '''
 Calculates parameters for a given object's geometry according to a reference QRectangle.
 '''
-def getParameters(itemGeo, refGeo, *paramsIndexes):
+def getParameters(itemGeo, refGeo, *paramsIndexes, **kw):
   corners = [itemGeo.topLeft(), itemGeo.topRight(), itemGeo.bottomLeft(), itemGeo.bottomRight()]
   itemPoints = [corners[i] for i in paramsIndexes] if len(paramsIndexes) > 0 else corners
   rangeX = float(refGeo.width())
   rangeY = float(refGeo.height())
   parameters = []
+  pre = kw.get("pre", -1) # A Value of -1 for the precision means "as precise as possible"
   for ip in itemPoints:
     relativePos = (ip.x() - refGeo.x(), ip.y() - refGeo.y())
-    param = (relativePos[0]/rangeX, relativePos[1]/rangeY)
+    param = (round(relativePos[0]/rangeX, pre), round(relativePos[1]/rangeY, pre)) if pre >= 0 else (relativePos[0]/rangeX, relativePos[1]/rangeY)
     parameters.append(param)
 
   return tuple(parameters)
+
+
 '''
 Calculates a hitbox for a given content. (highest object -> lowest object on X and Y)
 Keep in mind that highest is technically UNDER lower. 
@@ -299,6 +303,7 @@ def randomObjName():
   num = ran.randint(0,999)
   name = name.format(n=w, v=num)
   return name
+
 '''
 Wrapper for multiplyColor to get a darker tone (0.7 coefficient)
 '''

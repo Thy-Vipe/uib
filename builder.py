@@ -4,6 +4,7 @@ from utils import *
 import utils as tools
 import sys, os, shutil, json
 import widgets as uit
+import pyWidgetEncoder as pyEncoder
 from popupMenu import PopupMenu
 from builderOpt import BuilderOptions
 from itemOptionsWid import itemOptionsWidget
@@ -56,6 +57,7 @@ class textHandle(object):
 		self._text = text
 
 	def text(self): return self._text
+
 """
 This Class acts like any widget (functions are for the most part similar to widget's BaseControl, their Base class... But contains the other widgets, allowing them to
 be translated, scaled, resized, strecthed, ripped...Oh wait.. That's going too far..Allowing to edit objects as a group, all at once.
@@ -184,6 +186,9 @@ class Group(QObject):
 
 	def getContours(self): return (self._contour, ['U','V', 'U', 'V'])
 	def getContoursPoints(self): return self._contourPoints
+
+	def convertToWidget(self):
+		pass
 
 
 """
@@ -1049,7 +1054,8 @@ class UIBWindow(QMainWindow):
 			"os": os,
 			"sys": sys,
 			"uit": uit,
-			"tools": tools
+			"tools": tools,
+			"encoder": pyEncoder
 		}
 
 		self.console = consoleTool.ConsoleDialog(self, self.symbols)
@@ -1216,7 +1222,7 @@ class UIBWindow(QMainWindow):
 			self.background = UiData["background"]
 			self.__viewport.currentCID = UiData["latestCID"]	
 			self.fileNiceName = UiData["fileNiceName"]
-			self.startupScript.setText(UiData["startup_script"])
+			self.startupScript.setText(UiData.get("startup_script", DEFAULT_STARTUP_SCRIPT))
 			self.updateBackground()
 			self.currentFileData = jsonData
 			self.currentFilePath = fileName
@@ -1226,7 +1232,7 @@ class UIBWindow(QMainWindow):
 			newTab.resize(*wh)
 			newTab.background = UiData["background"]
 			newTab.niceName = UiData["fileNiceName"]
-			newTab.startupScript.setText(UiData["startup_script"])
+			newTab.startupScript.setText(UiData.get("startup_script", DEFAULT_STARTUP_SCRIPT))
 			newTab.filePath = fileName
 			newTab.updateBackground()
 
@@ -1255,6 +1261,7 @@ class UIBWindow(QMainWindow):
 		for obj in self.items:
 			obj.delete()
 		self.items = []
+		self.__viewport.currentCID = -1
 		self.background = None
 		self.updateBackground()
 		self.fileNiceName = None

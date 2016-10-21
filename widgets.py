@@ -136,6 +136,8 @@ class BaseControl(QObject):
 		self.stylesheet = "NoStyleSheet"
 		self.objectHL_locked = False
 		self.isSelectable = False
+		self.tooltip = ""
+		self._fontSize = 8
 
 	def move(self, pos):
 		self._pos = pos
@@ -153,6 +155,8 @@ class BaseControl(QObject):
 	def setStyleSheet(self, stylesheet):
 		self.widget.setStyleSheet(stylesheet)
 		self.stylesheet = stylesheet
+
+	def styleSheet(self): return self.widget.styleSheet()
 
 	def setGeometry(self, geo, client=False):
 		if isinstance(geo, QRect): pass

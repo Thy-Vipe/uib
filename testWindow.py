@@ -1,7 +1,7 @@
 from PySide import QtCore, QtGui
 import sys
 import popupMenu as pp
-
+import VixBlueshade_CLASS as t
 
 class testUI(QtGui.QMainWindow):
 	def __init__(self):
@@ -10,6 +10,7 @@ class testUI(QtGui.QMainWindow):
 		self.show()
 		self.setMouseTracking(True)
 		self.menu = None
+		self.someWidget = t.VixBlueshade(self)
 
 	def mousePressEvent(self, event):
 		if event.button() == QtCore.Qt.RightButton:

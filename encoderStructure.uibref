@@ -1,0 +1,29 @@
+from PySide.QtCore import *
+from PySide.QtGui import *
+"""
+WARNING: AUTOMATICALLY GENERATED FILE. ALL CHANGES MAY BE LOST. 
+Source: UIB. 
+Developer: Leo Coulombier (contact @ leo.coulombier@gmail.com), aka Vipe. 
+"""
+
+class {CLASSNAME}(QWidget):
+    def __init__(self, parent):
+        super({CLASSNAME}, self).__init__(parent)
+        {CONTENT_INIT}
+        {CONTAINED_ITEMS_QSTYLE_ATTRS}
+        {CONTAINED_ITEMS_TOOLTIPS}
+        {ITEMS_PARAMS}
+        self.setGeometry(QRect(*{OBJ_DEFAULTGEO}))
+        self.show()
+
+    def setGeometry(self, geo):
+        super({CLASSNAME}, self).setGeometry(geo)
+        for item, params in zip(self.content, self.parameters):
+            ngeo = QRect()
+            x, y = params[0]
+            w, h = params[1]
+            ngeo.setX(int(geo.width()*x))
+            ngeo.setY(int(geo.height()*y))
+            ngeo.setWidth(int(geo.width()*(w-x))+1)
+            ngeo.setHeight(int(geo.height()*(h-y))+1)
+            item.setGeometry(ngeo)
